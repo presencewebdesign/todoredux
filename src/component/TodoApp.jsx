@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import validator from 'validator';
 import { Button, Row, Column } from 'react-foundation';
 import TodoList from './TodoList';
@@ -71,7 +73,7 @@ class TodoApp extends Component {
         e.preventDefault();
         const todoText = this.state.values.addtodo;
         if (todoText.length > 0 && this.state.errors.addtodo === false) {
-            dispatch(actions.addTodo(todoText));
+            this.props.dispatch(actions.addTodo(todoText));
         }
     }
     handleSearch(e) {
@@ -167,5 +169,13 @@ class TodoApp extends Component {
         );
     }
 }
-
-export default TodoApp;
+export default connect(
+    (state) => {
+        return{
+            todos: state.todos
+        };
+    },
+    (dispatch) => ({
+        dispatch
+    })
+)(TodoApp);
