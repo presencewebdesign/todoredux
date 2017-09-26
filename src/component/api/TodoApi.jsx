@@ -25,7 +25,10 @@ const TodoApi = {
 
         // Filter by searchText
         filteredTodos = filteredTodos.filter((todo) => {
-            let text = todo.text.toLowerCase();
+            if(todo.text){
+                console.log(todo.text);
+            }
+            const text = todo.text.toLowerCase();
             return searchText.length === 0 || text.indexOf(searchText) > -1;
         });
 

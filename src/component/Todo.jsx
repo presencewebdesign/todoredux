@@ -15,25 +15,24 @@ const Todo = (props) => {
         return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
     };
     return (
-        <label className="todoList">
-            <input
-                type="checkbox"
-                defaultChecked={props.completed}
-                name="checked"
-                onClick={() => {
-                    props.dispatch(actions.toggleTodo(props.id))}
+      <label className="todoList">
+          <input
+              type="checkbox"
+              defaultChecked={props.completed}
+              name="checked"
+              onClick={() => {
+                    props.dispatch(actions.toggleTodo(props.id));
+ }
                 }
             />
-            {props.text}
-            <p className='date'>{renderDate()}</p>
+          {props.text}
+          <p className="date">{renderDate()}</p>
         </label>
     );
 };
 
 export default connect(
-    (state) => {
-        return{
+    (state) => ({
             todos: state.todos
-        };
-    }
+        }),
 )(Todo);

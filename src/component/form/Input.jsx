@@ -1,24 +1,26 @@
 import React from 'react';
-import { string, func } from 'prop-types';
+import { string } from 'prop-types';
+import { connect } from 'react-redux';
 
 const Input = props => (
     <div>
         <input
             name={props.name}
-            value={props.state.values[props.name]}
+            value={props.value}
             type={props.type}
-            onChange={props.control ? props.control : props.handleSearch}
-            onKeyUp={props.validate}
-            className={props.state.errors[props.name] ? 'invalid' : ''}
+            onChange={props.onChange}
             placeholder={props.placeholder}
-        />
-        {props.state.errors[props.name] ? <p style={{ color: 'red' }}>{props.state.errorMessages[props.name]}</p> : null}
-    </div>
+            />
+        {/* {props.state.errors[props.name] ? <p style={{ color: 'red' }}>{props.state.errorMessages[props.name]}</p> : null} */}
+        </div>
 );
 Input.propTypes = {
     name: string.isRequired,
     type: string.isRequired,
-    validate: func.isRequired,
 };
 
-export default Input;
+export default connect(
+    (state, props) => ({
+        value: state[props.name],
+    }),
+)(Input);

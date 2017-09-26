@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import Input from './form/Input';
 import Check from './form/Check';
 
@@ -10,9 +12,9 @@ class TodoSearch extends Component {
                     name="searchText"
                     type="text"
                     state={this.state}
-                    handleSearch={this.handleSearch}
                     validate={this.validate}
                     placeholder="Search Todos..."
+                    onChange={props.onChange}
                 />
                 <Check
                     name="isComplete"
@@ -26,4 +28,12 @@ class TodoSearch extends Component {
         );
     }
 }
-export default TodoSearch;
+
+export default connect(
+    (state) => {
+        return {
+            showCompleted: state.showCompleted,
+            searchText: state.searchText
+        };
+    }
+)(TodoSearch);
